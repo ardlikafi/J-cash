@@ -9,6 +9,7 @@ import 'statistics/statistics_screen.dart'; // Halaman statistik
 import 'profile/profile_screen.dart'; // Halaman profil
 
 class MainNavigator extends StatefulWidget {
+  // Constructor MainNavigator bisa tetap const karena tidak punya state/field non-final sendiri
   const MainNavigator({super.key});
 
   @override
@@ -19,13 +20,15 @@ class _MainNavigatorState extends State<MainNavigator> {
   int _selectedIndex = 0; // Indeks tab yang aktif
 
   // Daftar widget/halaman untuk setiap tab
-  // Menggunakan screen yang sebenarnya
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    TransactionHistoryScreen(), // Ganti placeholder dengan screen sebenarnya
-    StatisticsScreen(), // Ganti placeholder dengan screen sebenarnya
-    ProfileScreen(), // Ganti placeholder dengan screen sebenarnya
+  // --- PERBAIKAN DI SINI ---
+  // Ganti 'const' menjadi 'final' karena HomeScreen() tidak const
+  static final List<Widget> _widgetOptions = <Widget>[
+    HomeScreen(), // Ini sekarang valid
+    const TransactionHistoryScreen(), // Anggap screen lain punya constructor const
+    const StatisticsScreen(), // Anggap screen lain punya constructor const
+    const ProfileScreen(), // Anggap screen lain punya constructor const
   ];
+  // --- AKHIR PERBAIKAN ---
 
   void _onItemTapped(int index) {
     setState(() {
@@ -43,27 +46,25 @@ class _MainNavigatorState extends State<MainNavigator> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/icons/ic_home_inactive.png', // Nama ikon sudah diupdate
+              'assets/icons/ic_home_inactive.png',
               height: 24,
-              color:
-                  AppColors
-                      .bottomNavUnselected, // Pastikan warna unselected benar
+              color: AppColors.bottomNavUnselected,
             ),
             activeIcon: Image.asset(
-              'assets/icons/ic_home_active.png', // Nama ikon sudah diupdate
+              'assets/icons/ic_home_active.png',
               height: 24,
-              color: AppColors.bottomNavSelected, // Warna state aktif
+              color: AppColors.bottomNavSelected,
             ),
             label: 'Beranda',
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/icons/ic_transaksi_inactive.png', // Nama ikon sudah diupdate
+              'assets/icons/ic_transaksi_inactive.png',
               height: 24,
               color: AppColors.bottomNavUnselected,
             ),
             activeIcon: Image.asset(
-              'assets/icons/ic_transaksi_active.png', // Nama ikon sudah diupdate
+              'assets/icons/ic_transaksi_active.png',
               height: 24,
               color: AppColors.bottomNavSelected,
             ),
@@ -71,12 +72,12 @@ class _MainNavigatorState extends State<MainNavigator> {
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/icons/ic_statistik_inactive.png', // Nama ikon sudah diupdate
+              'assets/icons/ic_statistik_inactive.png',
               height: 24,
               color: AppColors.bottomNavUnselected,
             ),
             activeIcon: Image.asset(
-              'assets/icons/ic_statistik_active.png', // Nama ikon sudah diupdate
+              'assets/icons/ic_statistik_active.png',
               height: 24,
               color: AppColors.bottomNavSelected,
             ),
@@ -84,12 +85,12 @@ class _MainNavigatorState extends State<MainNavigator> {
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/icons/ic_profile_inactive.png', // Nama ikon sudah diupdate
+              'assets/icons/ic_profile_inactive.png',
               height: 24,
               color: AppColors.bottomNavUnselected,
             ),
             activeIcon: Image.asset(
-              'assets/icons/ic_profile_active.png', // Nama ikon sudah diupdate
+              'assets/icons/ic_profile_active.png',
               height: 24,
               color: AppColors.bottomNavSelected,
             ),
@@ -97,9 +98,8 @@ class _MainNavigatorState extends State<MainNavigator> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: AppColors.bottomNavSelected, // Warna label aktif
-        unselectedItemColor:
-            AppColors.bottomNavUnselected, // Warna label tidak aktif
+        selectedItemColor: AppColors.bottomNavSelected,
+        unselectedItemColor: AppColors.bottomNavUnselected,
         backgroundColor: AppColors.white,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
@@ -111,7 +111,3 @@ class _MainNavigatorState extends State<MainNavigator> {
     );
   }
 }
-
-// --- Placeholder Screen SUDAH DIHAPUS ---
-// Pindahkan class StatisticsScreen dan ProfileScreen ke file masing-masing
-// di lib/screens/statistics/ dan lib/screens/profile/

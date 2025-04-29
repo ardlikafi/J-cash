@@ -106,7 +106,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   // Logo J-Cash
                   Image.asset(
-                    'assets/images/logo_jcash_white.png',
+                    'assets/images/img_logo.png',
                     height: 80,
                     errorBuilder:
                         (context, error, stackTrace) => const Icon(

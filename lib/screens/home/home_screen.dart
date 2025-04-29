@@ -1,112 +1,116 @@
 // lib/screens/home/home_screen.dart
 import 'package:flutter/material.dart';
-import 'package:j_cash/constants/app_colors.dart'; // Sesuaikan package name
-import 'package:j_cash/widgets/savings_card.dart'; // Import widget card
-import 'package:j_cash/widgets/transaction_list_item.dart'; // Import widget item
+import 'package:j_cash/constants/app_colors.dart';
+import 'package:j_cash/widgets/savings_card.dart'; // Pastikan file ini ada
+import 'package:j_cash/widgets/transaction_list_item.dart'; // Pastikan file ini ada
 import 'package:j_cash/screens/transactions/add_transaction_screen.dart';
 import 'package:j_cash/screens/savings/create_savings_screen.dart';
 import 'package:j_cash/screens/transactions/transaction_history_screen.dart';
-// import 'package:j_cash/screens/profile/profile_screen.dart'; // Untuk navigasi ke profile
-// import 'package:j_cash/screens/notifications/notification_screen.dart'; // Untuk navigasi notifikasi
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  String userName = "Kim Ji Won";
+  String userImageUrl =
+      'assets/icons/ic_profile.png'; // Pastikan gambar ini ada
+  double currentBalance = 999999.0;
 
-  // --- Placeholder Data ---
-  // Nanti data ini akan diambil dari Firebase/Provider
-  final String userName = "Kim Ji Won"; // Contoh nama
-  final String userImageUrl =
-      'assets/images/profile_pic_placeholder.png'; // Contoh path gambar profil
-  final String currentBalance = "999.999"; // Contoh saldo
-  final List<Map<String, dynamic>> savingsData = [
-    // Contoh data tabungan
+  List<Map<String, dynamic>> savingsData = [
     {
       'title': 'Beli Rumah',
-      'progress': 0.1,
-      'target': 100000000,
+      'iconPath': 'assets/icons/ic_home_card.png', // Pastikan ikon ini ada
+      'progress': 0.1, 'currentAmount': 10000000.0, 'target': 100000000.0,
       'color': AppColors.savingsCardBg1,
     },
     {
       'title': 'Investasi',
-      'progress': null,
-      'target': 100000000,
+      'iconPath':
+          'assets/icons/ic_investment_card.png', // Pastikan ikon ini ada
+      'progress': null, 'currentAmount': 0.0, 'target': 100000000.0,
       'color': AppColors.savingsCardBg2,
     },
     {
       'title': 'Beli Mobil',
-      'progress': 0.5,
-      'target': 10000000,
+      'iconPath': 'assets/icons/ic_car_card.png', // Pastikan ikon ini ada
+      'progress': 0.5, 'currentAmount': 5000000.0, 'target': 10000000.0,
       'color': AppColors.savingsCardBg1,
     },
-    // Tambah data dummy lain jika perlu
   ];
-  final List<Map<String, dynamic>> transactionData = [
-    // Contoh data transaksi
+
+  List<Map<String, dynamic>> transactionData = [
     {
       'category': 'Gym & Kesehatan',
-      'icon': 'assets/icons/icon_heart.png',
+      'icon': 'assets/icons/ic_gym.png', // Pastikan ikon ini ada
       'date': 'Senin, 26 Mei',
-      'amount': -165000,
+      'amount': -165000.0,
       'color': Colors.purple.shade100,
     },
     {
       'category': 'Belanja',
-      'icon': 'assets/icons/icon_cart.png',
+      'icon': 'assets/icons/ic_shopping.png', // Pastikan ikon ini ada
       'date': 'Selasa, 27 Mei',
-      'amount': -55000,
+      'amount': -55000.0,
       'color': Colors.teal.shade100,
     },
     {
       'category': 'Beli Seblak',
-      'icon': 'assets/icons/icon_food.png',
+      'icon': 'assets/icons/ic_food.png', // Pastikan ikon ini ada
       'date': 'Selasa, 27 Mei',
-      'amount': -25000,
+      'amount': -25000.0,
       'color': Colors.orange.shade100,
     },
     {
       'category': 'Affiliate',
-      'icon': 'assets/icons/icon_income.png',
+      'icon': 'assets/icons/ic_income.png', // Pastikan ikon ini ada
       'date': 'Selasa, 27 Mei',
-      'amount': 100000000,
+      'amount': 100000000.0,
       'color': Colors.green.shade100,
     },
   ];
-  // -----------------------
+
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // --- DEBUGGING PRINTS ---
+    print('[HomeScreen Build] Starting build...');
+    print('[HomeScreen Build] savingsData count: ${savingsData.length}');
+    print(
+      '[HomeScreen Build] transactionData count: ${transactionData.length}',
+    );
+    // --- END DEBUGGING PRINTS ---
+
     return Scaffold(
-      backgroundColor: AppColors.white, // Background putih untuk home
-      // Gunakan CustomScrollView untuk menggabungkan AppBar fleksibel dan konten scrollable
+      backgroundColor: AppColors.white,
       body: CustomScrollView(
         slivers: [
-          // --- AppBar Fleksibel ---
           SliverAppBar(
             backgroundColor: AppColors.white,
-            pinned: true, // Tetap terlihat saat scroll
-            floating: true, // Muncul langsung saat scroll ke atas
-            elevation: 0, // Tanpa shadow
-            automaticallyImplyLeading: false, // Sembunyikan tombol back default
-            titleSpacing: 0, // Hapus padding default title
+            pinned: true,
+            floating: true,
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            titleSpacing: 0,
+            // --- Panggil Helper Functions ---
             title: _buildHeader(context, userName, userImageUrl),
             actions: [
-              // Ikon Notifikasi
               IconButton(
                 icon: Image.asset(
-                  'assets/icons/icon_bell.png',
+                  'assets/icons/ic_bell.png', // Pastikan ikon ini ada
                   height: 24,
                   color: AppColors.iconGrey,
-                ), // Ganti dg ikonmu
+                  errorBuilder:
+                      (context, error, stackTrace) => const Icon(
+                        Icons.notifications_none,
+                        color: AppColors.iconGrey,
+                      ),
+                ),
                 onPressed: () {
                   print("Notification icon pressed");
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen()));
                 },
               ),
-              const SizedBox(width: 10), // Sedikit jarak
+              const SizedBox(width: 10),
             ],
           ),
-
-          // --- Konten Utama (dalam SliverList agar bisa scroll) ---
           SliverPadding(
             padding: const EdgeInsets.symmetric(
               horizontal: 20.0,
@@ -114,19 +118,13 @@ class HomeScreen extends StatelessWidget {
             ),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                // --- Bagian Saldo ---
+                // --- Panggil Helper Functions ---
                 _buildBalanceSection(context, currentBalance),
                 const SizedBox(height: 25),
-
-                // --- Bagian Rencana Tabungan ---
                 _buildSavingsSection(context, savingsData),
                 const SizedBox(height: 25),
-
-                // --- Bagian Riwayat Transaksi ---
                 _buildRecentTransactions(context, transactionData),
                 const SizedBox(height: 20),
-
-                // --- Tombol Lihat Semua Transaksi ---
                 Center(
                   child: TextButton(
                     onPressed: () {
@@ -148,6 +146,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 20),
               ]),
             ),
           ),
@@ -156,43 +155,33 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // --- Widget Builder Helper ---
+  // --- Implementasi Lengkap Helper Widgets ---
 
   Widget _buildHeader(BuildContext context, String name, String imageUrl) {
+    print('[HomeScreen Build] Building Header...'); // DEBUG
     return Padding(
-      padding: const EdgeInsets.only(left: 20.0, top: 5), // Padding kiri & atas
+      padding: const EdgeInsets.only(left: 20.0, top: 5),
       child: Row(
         children: [
-          // Foto Profil
-          GestureDetector(
-            onTap: () {
-              print("Profile pic tapped");
-              // TODO: Navigasi ke Profile Screen dari MainNavigator
-              // Mungkin perlu cara untuk switch tab di MainNavigator dari sini
-              // Atau buka halaman profile terpisah jika desainnya begitu
-              // DefaultTabController.of(context)?.animateTo(3); // Contoh jika pakai TabController
-            },
+          CircleAvatar(
+            radius: 22,
+            backgroundColor: Colors.grey.shade300,
             child: CircleAvatar(
               radius: 22,
-              // Ganti dengan NetworkImage jika URL dari internet
+              backgroundColor: Colors.transparent,
               backgroundImage: AssetImage(imageUrl),
-              onBackgroundImageError:
-                  (exception, stackTrace) =>
-                      print('Error loading profile image: $exception'),
-              child:
-                  imageUrl.isEmpty
-                      ? const Icon(Icons.person, size: 22)
-                      : null, // Fallback
+              onBackgroundImageError: (exception, stackTrace) {
+                print('Error loading profile image: $exception');
+              },
             ),
           ),
           const SizedBox(width: 12),
-          // Teks Salam & Nama
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Selamat Pagi,', // Nanti bisa dinamis (Pagi/Siang/Malam)
+                'Selamat Pagi,',
                 style: TextStyle(fontSize: 13, color: AppColors.greyText),
               ),
               Text(
@@ -210,10 +199,11 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBalanceSection(BuildContext context, String balance) {
+  Widget _buildBalanceSection(BuildContext context, double balance) {
+    print('[HomeScreen Build] Building Balance Section...'); // DEBUG
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center, // Sejajarkan vertikal
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -224,18 +214,20 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              'Rp $balance',
+              NumberFormat.currency(
+                locale: 'id_ID',
+                symbol: 'Rp ',
+                decimalDigits: 0,
+              ).format(balance),
               style: const TextStyle(
-                fontSize: 32, // Ukuran besar
+                fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: AppColors.fontGreen, // Warna hijau
+                color: AppColors.fontGreen,
               ),
             ),
           ],
         ),
-        // Tombol Tambah (+)
         InkWell(
-          // Gunakan InkWell agar ada efek ripple
           onTap: () {
             Navigator.push(
               context,
@@ -244,12 +236,12 @@ class HomeScreen extends StatelessWidget {
               ),
             );
           },
-          borderRadius: BorderRadius.circular(25), // Bentuk ripple bulat
+          borderRadius: BorderRadius.circular(25),
           child: Container(
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: AppColors.primaryGreen, // Background tombol +
+              color: AppColors.primaryGreen,
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
@@ -270,6 +262,15 @@ class HomeScreen extends StatelessWidget {
     BuildContext context,
     List<Map<String, dynamic>> data,
   ) {
+    print(
+      '[HomeScreen Build] Building Savings Section (Data count: ${data.length})...',
+    ); // DEBUG
+    if (data.isEmpty) {
+      print(
+        '[HomeScreen Build] Savings data is empty, returning SizedBox.shrink()',
+      ); // DEBUG
+      return const SizedBox.shrink();
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -305,29 +306,33 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 15),
-        // List Card Horizontal
         SizedBox(
-          height: 120, // Tentukan tinggi container list horizontal
+          height:
+              125, // Sesuaikan tinggi jika perlu untuk mengakomodasi isi card
           child: ListView.builder(
-            scrollDirection: Axis.horizontal, // Scroll ke samping
+            scrollDirection: Axis.horizontal,
             itemCount: data.length,
             itemBuilder: (context, index) {
               final item = data[index];
-              // Panggil widget SavingsCard (isi implementasinya nanti)
+              print(
+                '[HomeScreen Build] Building SavingsCard index $index: ${item['title']}',
+              ); // DEBUG
               return Padding(
                 padding: EdgeInsets.only(
                   right: index == data.length - 1 ? 0 : 10,
-                ), // Beri jarak antar card
+                ),
                 child: SavingsCard(
-                  title: item['title'],
+                  // Pastikan SavingsCard menerima semua parameter ini
+                  title: item['title'] ?? 'Tanpa Judul',
+                  iconPath:
+                      item['iconPath'] ??
+                      'assets/icons/ic_default_saving.png', // Pastikan ada default icon
                   progress: item['progress'],
-                  targetAmount: item['target'],
-                  color:
-                      item['color'] ??
-                      AppColors.savingsCardBg1, // Warna background card
+                  currentAmount: item['currentAmount']?.toDouble() ?? 0.0,
+                  targetAmount: item['target']?.toDouble() ?? 0.0,
+                  color: item['color'] ?? AppColors.savingsCardBg1,
                   onTap: () {
                     print("Savings card ${item['title']} tapped");
-                    // TODO: Navigasi ke detail tabungan
                   },
                 ),
               );
@@ -342,6 +347,20 @@ class HomeScreen extends StatelessWidget {
     BuildContext context,
     List<Map<String, dynamic>> data,
   ) {
+    print(
+      '[HomeScreen Build] Building Recent Transactions (Data count: ${data.length})...',
+    ); // DEBUG
+    if (data.isEmpty) {
+      print(
+        '[HomeScreen Build] Transaction data is empty, returning Center text',
+      ); // DEBUG
+      return const Center(
+        child: Text(
+          "Belum ada transaksi",
+          style: TextStyle(color: AppColors.greyText),
+        ),
+      );
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -354,26 +373,28 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 15),
-        // List Transaksi Vertikal (ambil beberapa saja)
         ListView.builder(
-          shrinkWrap: true, // Agar ListView tidak ambil semua tinggi
-          physics:
-              const NeverScrollableScrollPhysics(), // Matikan scroll internal ListView
-          itemCount: data.length > 4 ? 4 : data.length, // Tampilkan maks 4 item
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: data.length > 4 ? 4 : data.length, // Batasi jumlah item
           itemBuilder: (context, index) {
             final item = data[index];
-            // Panggil widget TransactionListItem (isi implementasinya nanti)
+            print(
+              '[HomeScreen Build] Building TransactionListItem index $index: ${item['category']}',
+            ); // DEBUG
             return Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: TransactionListItem(
-                category: item['category'],
-                date: item['date'],
-                amount: item['amount'],
-                iconPath: item['icon'],
+                // Pastikan TransactionListItem menerima semua parameter ini
+                category: item['category'] ?? 'Lainnya',
+                date: item['date'] ?? '',
+                amount: item['amount']?.toDouble() ?? 0.0,
+                iconPath:
+                    item['icon'] ??
+                    'assets/icons/ic_default_transaction.png', // Pastikan ada default icon
                 iconBackgroundColor: item['color'] ?? Colors.grey.shade200,
                 onTap: () {
                   print("Transaction ${item['category']} tapped");
-                  // TODO: Navigasi ke detail transaksi
                 },
               ),
             );
@@ -382,4 +403,4 @@ class HomeScreen extends StatelessWidget {
       ],
     );
   }
-}
+} // Akhir Class HomeScreen

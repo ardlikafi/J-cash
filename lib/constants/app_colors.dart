@@ -48,5 +48,6 @@ class AppColors {
   // Warna untuk card tabungan (contoh)
   static const Color savingsCardBg1 = Color(0xFFE0F2E8); // Hijau muda
   static const Color savingsCardBg2 = Color(0xFFDDECFA); // Biru muda
-  // Tambahkan warna lain sesuai kebutuhan dari desainmu
+  // Tambahkan warna lain
+  static const Color error = Colors.red;
 }
