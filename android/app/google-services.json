@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "591836155357",
+    "project_id": "j-cash-app",
+    "storage_bucket": "j-cash-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591836155357:android:b1ab5a231ab6386510fa34",
+        "android_client_info": {
+          "package_name": "com.example.j_cash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591836155357-fisb5b6nk3ffgcj91s586gccce8v9bdc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbkKiojKl-zkyKNnlS47iLCY_Z8zXG9uU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591836155357-fisb5b6nk3ffgcj91s586gccce8v9bdc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "591836155357-6lgb2vssikiil062s2j7sbqo14ot1ots.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.jCash"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
