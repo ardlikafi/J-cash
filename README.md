@@ -28,9 +28,9 @@
 ## 📱 Screenshot
 
 <p align="center">
-  <img src="assets/images/screenshot1.png" width="200"/>
-  <img src="assets/images/screenshot2.png" width="200"/>
-  <img src="assets/images/screenshot3.png" width="200"/>
+  <img src="assets/images/screenshot1.jpg" width="200"/>
+  <img src="assets/images/screenshot2.jpg" width="200"/>
+  <img src="assets/images/screenshot3.jpg" width="200"/>
 </p>
 
 ---
