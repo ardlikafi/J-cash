@@ -19,7 +19,7 @@
 - 💰 **Manajemen Saldo Otomatis**: Saldo otomatis update sesuai transaksi, bisa edit manual.
 - 🏷️ **Kategori Dinamis**: Kategori transaksi per user, migrasi otomatis dari default.
 - 📝 **Catatan & Detail Transaksi**: Simpan dan tampilkan catatan pada setiap transaksi.
-- 🔔 **Notifikasi**: Mendukung notifikasi keuangan (opsional).
+- 🔔 **Notifikasi**: Mendukung notifikasi keuangan.
 - 🔄 **Pull-to-Refresh**: Tarik layar untuk refresh data di riwayat & beranda.
 - 🎨 **UI Modern & User-friendly**: Tampilan rapi, responsif, dan mudah digunakan.
 
@@ -92,4 +92,4 @@ Jangan lupa ⭐️ repo ini jika bermanfaat.
 
 ## 📄 Lisensi
 
-MIT License © 2024 [ardlikafi](https://github.com/ardlikafi)
+MIT License © 2025 [ardlikafi](https://github.com/ardlikafi)
